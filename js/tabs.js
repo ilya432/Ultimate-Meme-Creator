@@ -3,7 +3,7 @@
 window.addEventListener("load", function () {
     // store tabs variable
     var myTabs = document.querySelectorAll("ul.nav-tabs > li");
-    function myTabClicks(tabClickEvent) {
+    function myTabClicked(tabClickEvent) {
         for (var i = 0; i < myTabs.length; i++) {
             myTabs[i].classList.remove("active");
         }
@@ -20,6 +20,6 @@ window.addEventListener("load", function () {
         activePane.classList.add("active");
     }
     for (var i = 0; i < myTabs.length; i++) {
-        myTabs[i].addEventListener("click", myTabClicks)
+        myTabs[i].addEventListener("click", myTabClicked)
     }
 });

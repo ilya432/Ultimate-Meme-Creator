@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./css/appMainWindow.css">
-    <link rel="stylesheet" href="./css/galleryTab.css">
+    <link rel="stylesheet" href="./css/tabs.css">
     <link rel="stylesheet" href="./css/memesTab.css">
 </head>
 
@@ -18,24 +18,88 @@
         <div class="tabs-container">
             <section class="row">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab-1">About</a></li>
+                    <li class=""><a href="#tab-1">About</a></li>
                     <li class=""><a href="#tab-2">Memes</a></li>
-                    <li class=""><a href="#tab-3">Gallery</a></li>
+                    <li class="active"><a href="#tab-3">Gallery</a></li>
                 </ul>
+
                 <div class="tab-content">
-                    <div id="tab-1" class="tab-pane active">
-                        <div class="about-container">
+                    <div id="tab-1" class="tab-pane">
+                        <div class="tab-container">
                             <h3>About</h3>
                         </div>
                     </div>
+
+
                     <div id="tab-2" class="tab-pane">
-                        <div class="about-container">
+                        <div class="tab-container">
                             <h3>Memes</h3>
                         </div>
                     </div>
-                    <div id="tab-3" class="tab-pane">
-                        <div class="about-container">
-                            <h3>Gallery</h3>
+
+                    <div id="tab-3" class="tab-pane active">
+                        <div class="tab-container">
+
+                            <div class="gallery-container flex row">
+
+                                <div class="canvas-container flex">
+                                    <canvas class="canvas" height="600px" width="600px"></canvas>
+                                </div>
+
+                                <div class="controlls-container">
+
+                                    <input class="input-line-text" type="text" oninput="drawText(this)">
+                                    <div class="arrows">
+                                        <span>&uarr;</span>
+                                        <span>&darr;</span>
+                                    </div>
+
+                                    <div>
+                                        <span>Fill color:</span>
+                                        <input class="color-picker-fill" type="color" name="color-picker-fill"
+                                            value="#e66465">
+                                        <label for="color-picker-fill"></label>
+                                    </div>
+
+                                    <div>
+                                        <span>Border color:</span>
+                                        <input class="color-picker-border" type="color" name="color-picker-border"
+                                            value="#e66465">
+                                        <label for="color-picker-border"></label>
+                                    </div>
+
+                                    <!-- <button class="save-img" onclick="saveCanvasImage()">Save</button> -->
+
+                                    <a href="#" onclick="downloadImg(this)" download="a.jpg">
+                                        Download Img
+                                    </a>
+
+
+                                    <div class="gallery-memes">
+                                        <img class="gallery-meme"
+                                            src="img/uploadedMemes/03spongebob_xp-articleLarge.jpg"
+                                            onclick="drawImage(this)">
+
+                                        <img class="gallery-meme" src="img/uploadedMemes/Batman-Slapping-Robin.jpg"
+                                            onclick="drawImage(this)">
+
+                                        <img class="gallery-meme" src="img/uploadedMemes/images (1).jpg"
+                                            onclick="drawImage(this)">
+
+                                        <img class="gallery-meme" src="img/uploadedMemes/images.jpg"
+                                            onclick="drawImage(this)">
+
+                                        <img class="gallery-meme" src="img/uploadedMemes/OK-Boomer.jpg"
+                                            onclick="drawImage(this)">
+
+                                        <img class="gallery-meme" src="img/uploadedMemes/obesity-meme.png"
+                                            onclick="drawImage(this)">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
                 </div>
