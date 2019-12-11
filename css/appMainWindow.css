@@ -1,0 +1,26 @@
+body{margin: 0 auto; text-align: center;}
+
+
+.app-container{
+    min-height:700px; min-width:700px; 
+    /* background-color: rgb(75, 74, 68); */
+;
+    
+}
+.top-container{
+    height:60px;
+    background-color: lightblue;
+}
+
+.gallery-container{
+    /* display: none; */
+    height:100%;
+    background-color: rgb(133, 204, 150);
+    grid-area: gallery-container;
+}
+.memes-container{
+    display: none;
+    height:100%;
+    grid-area: memes-container;
+    background-color: rgb(218, 184, 223);
+}

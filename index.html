@@ -14,15 +14,33 @@
 <body>
 
     <div class="app-container">
-        <div class="top">
-            <nav class="nav">
 
-            </nav>
+        <div class="tabs-container">
+            <section class="row">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab-1">About</a></li>
+                    <li class=""><a href="#tab-2">Memes</a></li>
+                    <li class=""><a href="#tab-3">Gallery</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="about-container">
+                            <h3>About</h3>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="about-container">
+                            <h3>Memes</h3>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                        <div class="about-container">
+                            <h3>Gallery</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-
-        <div class="gallery-container"></div>
-
-        <div class="memes-container"></div>
 
     </div>
 
@@ -41,9 +59,11 @@
 
     <script src="./js/jquery-3.4.1.slim.min.js"></script>
     <script src="./js/utils.js"></script>
+
     <script src="./js/appService.js"></script>
     <script src="./js/storageService.js"></script>
-    <script src="./js/appController.js/"></script>
+    <script src="./js/appController.js"></script>
+    <script src="./js/tabs.js"></script>
 </body>
 
 </html>

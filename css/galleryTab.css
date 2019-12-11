@@ -1,2 +1,57 @@
-/* body, html{}
-a{} */
+a{
+    text-decoration: none;
+    color: lightslategray;
+    font-size: 20px;
+}
+.tabs-container {
+    margin: 2rem;
+  }
+  .tabs-container .nav-tabs {      
+    float: right;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    border-bottom: 1px solid rgb(134, 139, 134);
+  }
+  .tabs-container .nav-tabs > li {
+    float: right;
+    margin-bottom: -2px;
+  }
+  .tabs-container .nav-tabs > li > a {
+    float: left;
+    /* margin-right: 2px; */
+    line-height: 1.42857143;
+    padding: 30px;
+    border: 2px solid transparent;
+    border-radius: 4px 4px 0 0;
+  }
+  .tabs-container .nav-tabs > li > a:hover {
+    border-color: #eee #eee #ddd;
+  }
+  .tabs-container .nav-tabs > li.active > a,
+  .tabs-container .nav-tabs > li.active > a:hover,
+  .tabs-container .nav-tabs > li.active > a:focus {
+    color: rgb(197, 30, 30);
+    cursor: default;
+    background-color: rgb(216, 230, 220);
+    border: 1px solid rgb(136, 136, 129);
+    border-bottom-color: transparent;
+  }
+  .tabs-container .tab-content {
+    float: left;
+    width: 100%;
+  }
+  .tabs-container .tab-content > .tab-pane {
+    display: none;
+    border-bottom: 1px solid rgb(100, 95, 95);
+  }
+  .tabs-container .tab-content > .tab-pane.active {
+    display: block;
+    padding: 2.5% 3.5%;
+    background-color: #efefef;
+  }
+  .tabs-container .tab-content > .active {
+    display: block;
+  }
+  
