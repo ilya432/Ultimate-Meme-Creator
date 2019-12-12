@@ -2,9 +2,9 @@
 
 
 
-function renderGallery() {
-    var gallery = document.querySelector();
-}
+// function renderGallery() {
+//     var gallery = document.querySelector();
+// }
 
 
 

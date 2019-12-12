@@ -42,7 +42,7 @@
 
                             <div class="gallery-container flex row">
 
-                                <div class="canvas-container flex">
+                                <div class="canvas-container">
                                     <canvas class="canvas" height="600px" width="600px"></canvas>
                                 </div>
 
@@ -70,9 +70,19 @@
 
                                     <!-- <button class="save-img" onclick="saveCanvasImage()">Save</button> -->
 
-                                    <a href="#" onclick="downloadImg(this)" download="a.jpg">
-                                        Download Img
-                                    </a>
+                                    <input class="file-input btn" type="file" name="image"
+                                        onchange="onImgInput(event)" />
+
+
+                                    <button class="display=img-btn" onclick="displayImage()">display image</button>
+                                    <!-- <button class=" download-image" onclick="downloadImg(this)">Download image</button> -->
+                                    <button class=" download-image" onclick="downloadImg(this)">Download image</button>
+                                    <img class="testImage">
+
+
+
+
+
 
 
                                     <div class="gallery-memes">
@@ -127,6 +137,7 @@
     <script src="./js/storageService.js"></script>
     <script src="./js/appController.js"></script>
     <script src="./js/tabs.js"></script>
+    <script src="./js/upload-service.js"></script>
 </body>
 
 </html>

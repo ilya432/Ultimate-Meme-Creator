@@ -46,3 +46,36 @@ function measureText(ctx, text) {
     var text = ctx.measureText(text);
     console.log('text width: ' + text.width + ' px');
 }
+
+function loadAllImagesFromFolder() {
+    var checkCleared = true;
+    var checkFinished = false;
+    var img;
+    var imgArray = new Array();
+    var i = 0;
+
+    do {
+        if (checkCleared) {
+            checkCleared = false;
+            var myInterval = setInterval(function () {
+                img = new Image();
+                img.onload = function () {
+                    imgArray.push(img);
+                    i++;
+                    checkCleared = true;
+                }
+                img.onerror = function () {
+                    checkFinished = true;
+                }
+                img.src = 'img/test/' + i + '.jpg';
+            }, 1);
+        }
+    }
+    while (!checkFinished)
+    console.log(imgArray);
+    if (checkFinished) {
+        clearInterval(myInterval);
+        console.log('Loaded ' + i + ' image(s)!)');
+        return;
+    }
+}

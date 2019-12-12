@@ -1,7 +1,7 @@
 'use strict'
 
 //Canvas
-var gCanvas, gCtx, gCanvases = [], gNextCanvasID = -1;
+var gCanvas, gCtx, gImages = [], gNextImgID = -1;
 //Images
 var gCurrImageName;
 //Colors
@@ -16,8 +16,31 @@ var gFillColorWell, gBorderColorWell;
 
 
 
-
-
+function createImage(name, keywords) {
+    var image = {
+        id: gNextCanvasID++,
+        url: './img/savedMemes/' + name + '.jpg',
+        keywords: []
+    }
+    return image;
+}
+function createImages() {
+    gImages.push(createImage('003'))
+    gImages.push(createImage('004'))
+    gImages.push(createImage('005'))
+    gImages.push(createImage('5'))
+    gImages.push(createImage('006'))
+    gImages.push(createImage('8'))
+    gImages.push(createImage('9'))
+    gImages.push(createImage('12'))
+    gImages.push(createImage('Ancient-Aliens'))
+    gImages.push(createImage('img5'))
+    gImages.push(createImage('img11'))
+    gImages.push(createImage('img12'))
+    gImages.push(createImage('leo'))
+    gImages.push(createImage('meme1'))
+    save();
+}
 
 
 init();
@@ -25,7 +48,7 @@ init();
 function init() {
     // debugger;
     gCanvas = document.querySelector('.canvas');
-    fitToContainer(gCanvas);
+    // fitToContainer(gCanvas);
     gCtx = gCanvas.getContext("2d");
     gCanvas.addEventListener("mousemove", function (e) {
         move('move', e)
@@ -159,13 +182,13 @@ function saveCanvasImage() {
     }
 }
 function loadCanvases() {
-    gBooks = loadFromStorage('Canvases', []);
-    gNextCanvasID = loadFromStorage('gNextCanvasID', 1);
+    gImages = loadFromStorage('gImages', []);
+    gNextImgID = loadFromStorage('gNextImgID', 1);
 
-    if (gBooks.length === 0) {
-        createBooks();
+    if (gImages.length === 0) {
+        createImages();
     }
-    console.log(gBooks);
+    console.log(gImages);
 }
 
 function increaseLineSize() {
@@ -187,16 +210,39 @@ function decreaseLineSize() {
 
 
 
-
-
-
-function drawImage(elImg) {
-    var fullPath = elImg.src;
-    var filename = fullPath.replace(/^.*[\\\/]/, '');
-    gCurrImageName = filename;//get name for later 
-    clearCanvas();
-    gCtx.drawImage(elImg, 10, 10);
+function onImgInput(ev) {
+    loadImageFromInput(ev, drawImage)
 }
+function loadImageFromInput(ev, onImageReady) {
+    var reader = new FileReader();
+
+    reader.onload = function (event) {
+        var img = new Image();
+        img.onload = () => {
+            clearCanvas();
+            onImageReady(img)
+        };
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(ev.target.files[0]);
+}
+function drawImage(elImg) {
+    gCtx.drawImage(elImg, 0, 0, gCanvas.height, gCanvas.width);
+}
+
+
+// function drawImage(elImg) {
+
+//     var img = new Image;
+//     img.src = elImg.toDataURL();
+//     console.log(img.src);
+
+//     // var fullPath = elImg.src;
+//     // var filename = fullPath.replace(/^.*[\\\/]/, '');
+//     // gCurrImageName = filename;//get name for later 
+//     // clearCanvas();
+//     // gCtx.drawImage(elImg);
+// }
 
 function drawText(elTextBox) {
     var text = elTextBox.value;
@@ -211,7 +257,19 @@ function drawText(elTextBox) {
 }
 
 
+// debugger;
+function displayImage() {
+    const dataURI = gCanvas.toDataURL();
+    console.log(dataURI);
+}
+
+// function downloadImg(elLink) {
+//     var imgContent = gCanvas.toDataURL("image/png");
+//     var dataurl = imgContent.replace(/^data:image\/(png|jpg);base64,/, "");
+//     elLink.href = dataurl;
+// }
+
 function downloadImg(elLink) {
-    var imgContent = gCanvas.toDataURL('image/png');
+    var imgContent = gCanvas.toDataURL('image/jpeg');
     elLink.href = imgContent
 }
