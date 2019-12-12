@@ -34,6 +34,13 @@ body{
     grid-template-rows: repeat(5, 1fr);
     grid-gap: 5px; */
 }
+.input-line-text{}
+.top-controlls-container{}
+.upAndDown{}
+.move-text{}
+.add-image{}
+.clear-canvas{}
+.move-text{}
 .arrows{height:40px; width: 40px; border:1px solid black;}
 .btn{height:40px; width:40px;}
 .display-img

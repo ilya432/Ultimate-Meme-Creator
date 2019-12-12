@@ -47,11 +47,30 @@
                                 </div>
 
                                 <div class="controlls-container">
-
+                                    <!--Controlls-->
                                     <input class="input-line-text" type="text" oninput="drawText(this)">
                                     <div class="arrows">
                                         <span>&uarr;</span>
                                         <span>&darr;</span>
+                                    </div>
+                                    <!--Top controlls-->
+                                    <div class="top-controlls-container">
+                                        <img class="move-text btn"
+                                            src="./img/controlls/up-and-down-opposite-double-arrows-side-by-side.png"
+                                            onclick="moveText()">
+
+                                        <img class="add-image btn" src="./img/controlls/add.png" onclick="addImage()">
+
+                                        <img class="clear-canvas btn" src="./img/controlls/clear canvas.png"
+                                            onclick="clearCanvas()">
+                                    </div>
+
+                                    <div class="bottom-controlls-container">
+                                        <img class="increase-text btn" src="./img/controlls/increase font - icon.png"
+                                            onclick="increaseFontSize()">
+                                        <img class="decrease-text btn" src="./img/controlls/decrease font - icon.png"
+                                            onclick="decreaseFontSize()">
+
                                     </div>
 
                                     <div>
@@ -67,8 +86,6 @@
                                             value="#e66465">
                                         <label for="color-picker-border"></label>
                                     </div>
-
-                                    <!-- <button class="save-img" onclick="saveCanvasImage()">Save</button> -->
 
                                     <input class="file-input btn" type="file" name="image"
                                         onchange="onImgInputClicked(event)" />
@@ -133,9 +150,9 @@
 
     <script src="./js/jquery-3.4.1.slim.min.js"></script>
     <script src="./js/utils.js"></script>
-
-    <script src="./js/appService.js"></script>
     <script src="./js/storageService.js"></script>
+    <script src="./js/appService.js"></script>
+
     <script src="./js/appController.js"></script>
     <script src="./js/tabs.js"></script>
     <script src="./js/upload-service.js"></script>
