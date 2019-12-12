@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/appMainWindow.css">
+    <link rel="stylesheet" href="./css/main-style.css">
     <link rel="stylesheet" href="./css/tabs.css">
 </head>
 
 <body>
-
     <div class="app-container flex column">
 
         <div class="tabs-container">
@@ -35,7 +34,8 @@
                     <div id="tab-2" class="tab-pane">
                         <div class="tab-container">
                             <h3>Memes</h3>
-                            <div class="gallery-memes">
+                            <!--Hard coded images TODO upload-->
+                            <div class="memes-images">
                                 <img class="gallery-meme" src="img/uploadedMemes/003.jpg"
                                     onclick="drawImageInCanvas(this)">
                                 <img class="gallery-meme" src="img/uploadedMemes/004.jpg"
@@ -57,21 +57,21 @@
                             <!--Canvas & Gallery-->
                             <div class="gallery-container flex row">
 
-                                <div class="canvas-container">
+                                <section class="canvas-container">
                                     <canvas class="canvas" height="600px" width="600px">
                                         <div class="lines-container">
                                             <div class="line-1 line"></div>
                                             <div class="line-2 line"></div>
                                         </div>
                                     </canvas>
-                                </div>
+                                </section>
 
-                                <div class="controlls-container">
+                                <section class="controlls-container">
                                     <!--Controlls-->
                                     <input class="input-line-text" type="text" oninput="drawText(this)">
 
                                     <!--Top controlls-->
-                                    <div class="top-controlls-container flex row">
+                                    <div class="top-controlls-container flex row area">
                                         <button class="move-text btn"><img class="move-up btn-img"
                                                 src="./img/controlls/arrow up.png" onclick="moveText()"></button>
                                         <button class="move-text btn"><img class="move-down btn-img"
@@ -89,7 +89,7 @@
                                                 onclick="clearCanvas()"></button>
                                     </div>
 
-                                    <div class="bottom-controlls-container flex row">
+                                    <div class="bottom-controlls-container flex row area">
                                         <button class="btn"><img class="btn-img"
                                                 src="./img/controlls/increase font - icon.png"
                                                 onclick="increaseFontSize()"></button>
@@ -106,27 +106,44 @@
                                                 src="./img/controlls/align-to-right.png"
                                                 onclick="textAlignRight()"></button>
                                     </div>
+                                    <div class="more-controlls flex row area">
+                                        <div>
+                                            <span>Fill color:</span>
+                                            <input class="color-picker-fill" type="color" name="color-picker-fill"
+                                                value="#e66465">
+                                            <label for="color-picker-fill"></label>
+                                        </div>
+                                        <div>
+                                            <span>Border color:</span>
+                                            <input class="color-picker-border" type="color" name="color-picker-border"
+                                                value="#e66465">
+                                            <label for="color-picker-border"></label>
+                                        </div>
 
-                                    <div>
-                                        <span>Fill color:</span>
-                                        <input class="color-picker-fill" type="color" name="color-picker-fill"
-                                            value="#e66465">
-                                        <label for="color-picker-fill"></label>
+                                        <input class="file-input btn" type="file" name="image" style="display: none;"
+                                            onchange="onImgInputClicked(event)" />
+
+                                        <a href="#" class="download-button" onclick="downloadImg(this)"
+                                            download="my-canvas.jpg"><img class="download-img btn"
+                                                src="./img/controlls/download.png"></a>
                                     </div>
-                                    <div>
-                                        <span>Border color:</span>
-                                        <input class="color-picker-border" type="color" name="color-picker-border"
-                                            value="#e66465">
-                                        <label for="color-picker-border"></label>
+
+
+                                    <div class="gallery-memes flex column wrap area">
+                                        <img class="gallery-meme" src="img/uploadedMemes/003.jpg"
+                                            onclick="drawImageInCanvas(this)">
+                                        <img class="gallery-meme" src="img/uploadedMemes/004.jpg"
+                                            onclick="drawImageInCanvas(this)">
+                                        <img class="gallery-meme" src="img/uploadedMemes/005.jpg"
+                                            onclick="drawImageInCanvas(this)">
+                                        <img class="gallery-meme" src="img/uploadedMemes/5.jpg"
+                                            onclick="drawImageInCanvas(this)">
+                                        <img class="gallery-meme" src="img/uploadedMemes/006.jpg"
+                                            onclick="drawImageInCanvas(this)">
+                                        <img class="gallery-meme" src="img/uploadedMemes/8.jpg"
+                                            onclick="drawImageInCanvas(this)">
                                     </div>
-
-                                    <input class="file-input btn" type="file" name="image" style="display: none;"
-                                        onchange="onImgInputClicked(event)" />
-
-                                    <a href="#" class="download-button" onclick="downloadImg(this)"
-                                        download="my-canvas.jpg"><img class="download-img btn"
-                                            src="./img/controlls/download.png"></a>
-                                </div>
+                                </section>
                             </div>
                         </div>
                     </div>

@@ -1,57 +1,56 @@
-a{
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    font-size: 20px;
+a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
 }
 .tabs-container {
-  position: relative;
-  }
-  .tabs-container .nav-tabs {      
-    float: right;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    border-bottom: 1px solid #ff7f00;
-  }
-  .tabs-container .nav-tabs > li {
-    float: right;
-    margin-bottom: -2px;
-  }
-  .tabs-container .nav-tabs > li > a {
-    float: left;
-    /* margin-right: 2px; */
-    line-height: 1.42857143;
-    padding: 30px;
-    border: 2px solid transparent;
-    border-radius: 4px 4px 0 0;
-  }
-  .tabs-container .nav-tabs > li > a:hover {
-    border-color: #ff7f00 #ff7f00 #ff7f00;
-  }
-  .tabs-container .nav-tabs > li.active > a,
-  .tabs-container .nav-tabs > li.active > a:hover,
-  .tabs-container .nav-tabs > li.active > a:focus {
-    color: #000000;
-    cursor: default;
-    background-color: #ff7f21;
-    border: 1px solid rgb(0, 0, 0);
-    border-bottom-color: transparent;
-  }
-  .tabs-container .tab-content {
-    float: left;
-    width: 100%;
-  }
-  .tabs-container .tab-content > .tab-pane {
-    display: none;
-    border-bottom: 1px solid rgb(100, 95, 95);
-  }
-  .tabs-container .tab-content > .tab-pane.active {
-    display: block;
-    /* padding: 10px 10px; */
-    background-color: #efefef;
-  }
-  .tabs-container .tab-content > .active {
-    display: block;
-  }
-  
+  position: relative; 
+}
+.tabs-container .nav-tabs {
+  float: right;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  border-bottom: 1px solid #ff7f00;
+}
+.tabs-container .nav-tabs > li {
+  float: right;
+  margin-bottom: -2px;
+}
+.tabs-container .nav-tabs > li > a {
+  float: left;
+  /* margin-right: 2px; */
+  line-height: 1.42857143;
+  padding: 30px;
+  border: 2px solid transparent;
+  border-radius: 4px 4px 0 0;
+}
+.tabs-container .nav-tabs > li > a:hover {
+  border-color: #ff7f00 #ff7f00 #ff7f00;
+}
+.tabs-container .nav-tabs > li.active > a,
+.tabs-container .nav-tabs > li.active > a:hover,
+.tabs-container .nav-tabs > li.active > a:focus {
+  color: #000000;
+  cursor: default;
+  background-color: #ff7f21;
+  border: 1px solid rgb(0, 0, 0);
+  border-bottom-color: transparent;
+}
+.tabs-container .tab-content {
+  float: left;
+  width: 100%;
+}
+.tabs-container .tab-content > .tab-pane {
+  display: none;
+  border-bottom: 1px solid rgb(100, 95, 95);
+}
+.tabs-container .tab-content > .tab-pane.active {
+  display: block;
+  /* padding: 10px 10px; */
+  background-color: #efefef;
+}
+.tabs-container .tab-content > .active {
+  display: block;
+}
