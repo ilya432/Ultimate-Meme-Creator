@@ -6,6 +6,7 @@ var gCanvas, gCtx, gImages = [], gNextImgID = -1;
 var gCurrImageName;
 //Colors
 var gBorderColor, gFillColor;
+window.addEventListener("load", startupColorPickers, false);
 //Pos
 var gCurrX = 0, gPrevX = 0, gCurrY = 0, gPrevY = 0;
 var gPoints = [], gScrollTop = 0;
@@ -21,8 +22,10 @@ var gLineSize = 1, gFontSize = 40;
 init();
 
 function init() {
+    //Canvas
     gCanvas = document.querySelector('.canvas');
     gCtx = gCanvas.getContext("2d");
+    //Events
     gCanvas.addEventListener("mousemove", function (e) {
         move('move', e)
     }, false);
@@ -35,7 +38,7 @@ function init() {
     gCanvas.addEventListener("mouseout", function (e) {
         out('out', e)
     }, false);
-    //Touch
+    //Touch events
     gCanvas.addEventListener("touchstart", function (e) {
         down('touchstart', e)
     }, false);
@@ -53,6 +56,7 @@ function init() {
     loadCanvasImages();
 }
 
+//Mouse/Touch events
 function move(res, e) {
     if (res == 'move' || res == 'touchmove') {
         gPrevX = gCurrX;
@@ -111,6 +115,7 @@ function up(res, e) {
     }
 }
 
+
 function createImage(name, keywords) {
     var image = {
         name: name,
@@ -134,8 +139,8 @@ function createImages() {
 }
 
 
-window.addEventListener("load", startup, false);
-function startup() {
+//Colors
+function startupColorPickers() {
     var fillColorPicker = document.querySelector(".color-picker-fill");
     gFillColor = getRandomColor();
     fillColorPicker.value = gFillColor;
@@ -157,9 +162,13 @@ function updateBorderColor(event) {
     isRandomColors = false;
 }
 
+//Canvas
 function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
+//End Canvas
+
+//Local storage
 function saveCanvasImages() {
     saveToStorage('Images', gImages);
 }
@@ -173,7 +182,10 @@ function loadCanvasImages() {
     else
         console.log(gImages);
 }
+//End Local storage
 
+//Controls
+//Text
 function increaseFontSize() {
     gFontSize++;
     var textbox = document.querySelector('.input-line-text');
@@ -188,7 +200,6 @@ function decreaseFontSize() {
     console.log('font' + gFontSize);
 }
 function drawText(elTextBox) {
-
     var text = elTextBox.value;
     gCtx.font = `${gFontSize}px Arial`;
 
@@ -200,13 +211,14 @@ function drawText(elTextBox) {
         clearCanvas();
     }
 }
+//End Text
+//End Controls
 
-
-
+//Images
 function onImgInputClicked(ev) {//image clicked
     loadImageFromInput(ev, drawImage)
 }
-function drawImage(elImg) {
+function drawImage(elImg) {//draw to canvas
     gCtx.drawImage(elImg, 0, 0, gCanvas.height, gCanvas.width);
 }
 function loadImageFromInput(ev, onImageReady) {
@@ -222,15 +234,11 @@ function loadImageFromInput(ev, onImageReady) {
     }
     reader.readAsDataURL(ev.target.files[0]);
 }
-function displayImage() {
-    const dataURI = gCanvas.toDataURL();
-    console.log(dataURI);
-}
 function downloadImg(elLink) {
     var imgContent = gCanvas.toDataURL('image/jpeg');
     elLink.href = imgContent
 }
-
+//End Images
 
 
 
