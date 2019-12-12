@@ -210,9 +210,11 @@ function decreaseLineSize() {
 
 
 
-function onImgInput(ev) {
-    debugger;
+function onImgInputClicked(ev) {//image clicked
     loadImageFromInput(ev, drawImage)
+}
+function drawImage(elImg) {
+    gCtx.drawImage(elImg, 0, 0, gCanvas.height, gCanvas.width);
 }
 function loadImageFromInput(ev, onImageReady) {
     var reader = new FileReader();
@@ -227,23 +229,8 @@ function loadImageFromInput(ev, onImageReady) {
     }
     reader.readAsDataURL(ev.target.files[0]);
 }
-function drawImage(elImg) {
-    gCtx.drawImage(elImg, 0, 0, gCanvas.height, gCanvas.width);
-}
 
 
-// function drawImage(elImg) {
-
-//     var img = new Image;
-//     img.src = elImg.toDataURL();
-//     console.log(img.src);
-
-//     // var fullPath = elImg.src;
-//     // var filename = fullPath.replace(/^.*[\\\/]/, '');
-//     // gCurrImageName = filename;//get name for later 
-//     // clearCanvas();
-//     // gCtx.drawImage(elImg);
-// }
 
 function drawText(elTextBox) {
     var text = elTextBox.value;
@@ -258,17 +245,10 @@ function drawText(elTextBox) {
 }
 
 
-// debugger;
 function displayImage() {
     const dataURI = gCanvas.toDataURL();
     console.log(dataURI);
 }
-
-// function downloadImg(elLink) {
-//     var imgContent = gCanvas.toDataURL("image/png");
-//     var dataurl = imgContent.replace(/^data:image\/(png|jpg);base64,/, "");
-//     elLink.href = dataurl;
-// }
 
 function downloadImg(elLink) {
     var imgContent = gCanvas.toDataURL('image/jpeg');
