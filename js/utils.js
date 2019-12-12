@@ -25,6 +25,13 @@ function point(x, y, hex) {
 //     console.log(gPoints);
 // }
 
+function fitToContainer(canvas) {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    w = canvas.width;
+    h = canvas.height;
+}
+
 function rgbToHex(r, g, b) {
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }

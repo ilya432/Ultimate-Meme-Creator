@@ -43,6 +43,10 @@
                             <div class="gallery-container flex row">
 
                                 <div class="canvas-container">
+                                    <div class="lines-container">
+                                        <div class="line-1 line"></div>
+                                        <div class="line-2 line"></div>
+                                    </div>
                                     <canvas class="canvas" height="600px" width="600px"></canvas>
                                 </div>
 
@@ -50,8 +54,8 @@
                                     <!--Controlls-->
                                     <input class="input-line-text" type="text" oninput="drawText(this)">
                                     <div class="arrows">
-                                        <span>&uarr;</span>
-                                        <span>&darr;</span>
+                                        <div class="arrow-down">&uarr;</div>
+                                        <div class="arrow-up">&darr;</div>
                                     </div>
                                     <!--Top controlls-->
                                     <div class="top-controlls-container">
@@ -60,9 +64,18 @@
                                             onclick="moveText()">
 
                                         <img class="add-image btn" src="./img/controlls/add.png" onclick="addImage()">
+                                        <form action="" method="POST" enctype="multipart/form-data"
+                                            onsubmit="uploadImg(this, event)">
+                                            <input name="img" id="imgData" type="hidden" />
+                                            <button class="btn" type="submit">Publish</button>
+                                            <div class="share-container"></div>
+                                        </form>
 
                                         <img class="clear-canvas btn" src="./img/controlls/clear canvas.png"
                                             onclick="clearCanvas()">
+
+
+
                                     </div>
 
                                     <div class="bottom-controlls-container">
@@ -102,22 +115,22 @@
 
                                     <div class="gallery-memes">
                                         <img class="gallery-meme" src="img/uploadedMemes/003.jpg"
-                                            onclick="drawImage(this)">
+                                            onclick="drawImageInCanvas(this)">
 
                                         <img class="gallery-meme" src="img/uploadedMemes/004.jpg"
-                                            onclick="drawImage(this)">
+                                            onclick="drawImageInCanvas(this)">
 
                                         <img class="gallery-meme" src="img/uploadedMemes/005.jpg"
-                                            onclick="drawImage(this)">
+                                            onclick="drawImageInCanvas(this)">
 
                                         <img class="gallery-meme" src="img/uploadedMemes/5.jpg"
-                                            onclick="drawImage(this)">
+                                            onclick="drawImageInCanvas(this)">
 
                                         <img class="gallery-meme" src="img/uploadedMemes/006.jpg"
-                                            onclick="drawImage(this)">
+                                            onclick="drawImageInCanvas(this)">
 
                                         <img class="gallery-meme" src="img/uploadedMemes/8.jpg"
-                                            onclick="drawImage(this)">
+                                            onclick="drawImageInCanvas(this)">
                                     </div>
                                 </div>
                             </div>
@@ -147,6 +160,8 @@
 
     <script src="./js/jquery-3.4.1.slim.min.js"></script>
     <script src="./js/utils.js"></script>
+    <script src="./js/invisibleRectangleLine.js"></script>
+
     <script src="./js/storageService.js"></script>
     <script src="./js/appService.js"></script>
 

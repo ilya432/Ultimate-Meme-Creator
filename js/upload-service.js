@@ -1,6 +1,7 @@
 
 // on submit call to this function
 function uploadImg(elForm, ev) {
+    debugger;
     ev.preventDefault();
     document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
 
@@ -17,18 +18,19 @@ function uploadImg(elForm, ev) {
 }
 
 function doUploadImg(elForm, onSuccess) {
+    debugger;
     var formData = new FormData(elForm);
     fetch('http://ca-upload.com/here/upload.php', {
         method: 'POST',
         body: formData
     })
-    .then(function (res) {
-        return res.text()
-    })
-    .then(onSuccess)
-    .catch(function (err) {
-        console.error(err)
-    })
+        .then(function (res) {
+            return res.text()
+        })
+        .then(onSuccess)
+        .catch(function (err) {
+            console.error(err)
+        })
 }
 
 

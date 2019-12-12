@@ -25,6 +25,7 @@ function init() {
     //Canvas
     gCanvas = document.querySelector('.canvas');
     gCtx = gCanvas.getContext("2d");
+    drawRectangle();
     //Events
     gCanvas.addEventListener("mousemove", function (e) {
         move('move', e)
@@ -190,14 +191,14 @@ function increaseFontSize() {
     gFontSize++;
     var textbox = document.querySelector('.input-line-text');
     drawText(textbox);
-    console.log('font' + gFontSize);
+    console.log('font ' + gFontSize);
 }
 function decreaseFontSize() {
     if (gFontSize != 0)
         gFontSize--;
     var textbox = document.querySelector('.input-line-text');
     drawText(textbox);
-    console.log('font' + gFontSize);
+    console.log('font ' + gFontSize);
 }
 function drawText(elTextBox) {
     var text = elTextBox.value;
@@ -218,8 +219,14 @@ function drawText(elTextBox) {
 function onImgInputClicked(ev) {//image clicked
     loadImageFromInput(ev, drawImage)
 }
-function drawImage(elImg) {//draw to canvas
+function drawImageInCanvas(elImg) {//draw to canvas
     gCtx.drawImage(elImg, 0, 0, gCanvas.height, gCanvas.width);
+
+
+    var textbox = document.querySelector('.input-line-text');
+    if (textbox.value !== '') {
+        drawText(textbox);
+    }
 }
 function loadImageFromInput(ev, onImageReady) {
     var reader = new FileReader();
@@ -238,7 +245,5 @@ function downloadImg(elLink) {
     var imgContent = gCanvas.toDataURL('image/jpeg');
     elLink.href = imgContent
 }
+
 //End Images
-
-
-

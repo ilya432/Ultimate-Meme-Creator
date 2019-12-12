@@ -15,9 +15,13 @@ body{
 /*Gallery*/
 .gallery-container{background-color: cadetblue;}
 .gallery-container div{width: 50%; }
-.canvas-container{background-color: hotpink; position: relative;
-    
+.canvas-container{
+    background-color: hotpink; 
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
 }
+.canvas-container .line{ position: absolute; margin: 10px; height:40px; width:100%; background-color: black;}/*display: none;*/
 .canvas {
     margin: 0 auto;
     background-color: silver;
@@ -41,7 +45,7 @@ body{
 .add-image{}
 .clear-canvas{}
 .move-text{}
-.arrows{height:40px; width: 40px; border:1px solid black;}
+.arrows div{height:40px; width: 40px; border:1px solid black;}
 .btn{height:40px; width:40px;}
 .display-img
 
