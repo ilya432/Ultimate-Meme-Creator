@@ -211,6 +211,7 @@ function decreaseLineSize() {
 
 
 function onImgInput(ev) {
+    debugger;
     loadImageFromInput(ev, drawImage)
 }
 function loadImageFromInput(ev, onImageReady) {
