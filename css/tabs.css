@@ -1,10 +1,10 @@
 a{
     text-decoration: none;
-    color: lightslategray;
+    color: rgb(255, 255, 255);
     font-size: 20px;
 }
 .tabs-container {
-    margin: 10px;
+  position: relative;
   }
   .tabs-container .nav-tabs {      
     float: right;
@@ -12,7 +12,7 @@ a{
     margin: 0;
     padding: 0;
     list-style-type: none;
-    border-bottom: 1px solid rgb(134, 139, 134);
+    border-bottom: 1px solid #ff7f00;
   }
   .tabs-container .nav-tabs > li {
     float: right;
@@ -27,15 +27,15 @@ a{
     border-radius: 4px 4px 0 0;
   }
   .tabs-container .nav-tabs > li > a:hover {
-    border-color: #eee #eee #ddd;
+    border-color: #ff7f00 #ff7f00 #ff7f00;
   }
   .tabs-container .nav-tabs > li.active > a,
   .tabs-container .nav-tabs > li.active > a:hover,
   .tabs-container .nav-tabs > li.active > a:focus {
-    color: rgb(197, 30, 30);
+    color: #000000;
     cursor: default;
-    background-color: rgb(216, 230, 220);
-    border: 1px solid rgb(136, 136, 129);
+    background-color: #ff7f21;
+    border: 1px solid rgb(0, 0, 0);
     border-bottom-color: transparent;
   }
   .tabs-container .tab-content {
@@ -48,8 +48,7 @@ a{
   }
   .tabs-container .tab-content > .tab-pane.active {
     display: block;
-    /* padding: 2.5% 3.5%; */
-    padding: 10px 10px;
+    /* padding: 10px 10px; */
     background-color: #efefef;
   }
   .tabs-container .tab-content > .active {

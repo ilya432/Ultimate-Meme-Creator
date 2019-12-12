@@ -8,12 +8,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/appMainWindow.css">
     <link rel="stylesheet" href="./css/tabs.css">
-    <link rel="stylesheet" href="./css/memesTab.css">
 </head>
 
 <body>
 
-    <div class="app-container">
+    <div class="app-container flex column">
 
         <div class="tabs-container">
             <section class="row">
@@ -21,69 +20,91 @@
                     <li class=""><a href="#tab-1">About</a></li>
                     <li class=""><a href="#tab-2">Memes</a></li>
                     <li class="active"><a href="#tab-3">Gallery</a></li>
+                    <li class="logo"><img class="logo-img" src="./img/LOGO.png"></li>
                 </ul>
 
                 <div class="tab-content">
+
                     <div id="tab-1" class="tab-pane">
                         <div class="tab-container">
                             <h3>About</h3>
+                            lorum ipsum...
                         </div>
                     </div>
-
 
                     <div id="tab-2" class="tab-pane">
                         <div class="tab-container">
                             <h3>Memes</h3>
+                            <div class="gallery-memes">
+                                <img class="gallery-meme" src="img/uploadedMemes/003.jpg"
+                                    onclick="drawImageInCanvas(this)">
+                                <img class="gallery-meme" src="img/uploadedMemes/004.jpg"
+                                    onclick="drawImageInCanvas(this)">
+                                <img class="gallery-meme" src="img/uploadedMemes/005.jpg"
+                                    onclick="drawImageInCanvas(this)">
+                                <img class="gallery-meme" src="img/uploadedMemes/5.jpg"
+                                    onclick="drawImageInCanvas(this)">
+                                <img class="gallery-meme" src="img/uploadedMemes/006.jpg"
+                                    onclick="drawImageInCanvas(this)">
+                                <img class="gallery-meme" src="img/uploadedMemes/8.jpg"
+                                    onclick="drawImageInCanvas(this)">
+                            </div>
                         </div>
                     </div>
 
                     <div id="tab-3" class="tab-pane active">
                         <div class="tab-container">
-
+                            <!--Canvas & Gallery-->
                             <div class="gallery-container flex row">
 
                                 <div class="canvas-container">
-                                    <div class="lines-container">
-                                        <div class="line-1 line"></div>
-                                        <div class="line-2 line"></div>
-                                    </div>
-                                    <canvas class="canvas" height="600px" width="600px"></canvas>
+                                    <canvas class="canvas" height="600px" width="600px">
+                                        <div class="lines-container">
+                                            <div class="line-1 line"></div>
+                                            <div class="line-2 line"></div>
+                                        </div>
+                                    </canvas>
                                 </div>
 
                                 <div class="controlls-container">
                                     <!--Controlls-->
                                     <input class="input-line-text" type="text" oninput="drawText(this)">
-                                    <div class="arrows">
-                                        <div class="arrow-down">&uarr;</div>
-                                        <div class="arrow-up">&darr;</div>
-                                    </div>
-                                    <!--Top controlls-->
-                                    <div class="top-controlls-container">
-                                        <img class="move-text btn"
-                                            src="./img/controlls/up-and-down-opposite-double-arrows-side-by-side.png"
-                                            onclick="moveText()">
 
-                                        <img class="add-image btn" src="./img/controlls/add.png" onclick="addImage()">
+                                    <!--Top controlls-->
+                                    <div class="top-controlls-container flex row">
+                                        <button class="move-text btn"><img class="move-up btn-img"
+                                                src="./img/controlls/arrow up.png" onclick="moveText()"></button>
+                                        <button class="move-text btn"><img class="move-down btn-img"
+                                                src="./img/controlls/arrow down.png" onclick="moveText()"></button>
+
                                         <form action="" method="POST" enctype="multipart/form-data"
                                             onsubmit="uploadImg(this, event)">
                                             <input name="img" id="imgData" type="hidden" />
-                                            <button class="btn" type="submit">Publish</button>
+                                            <button class=" btn" type="submit"><img class="btn-img"
+                                                    src="./img/controlls/add.png"></button>
                                             <div class="share-container"></div>
                                         </form>
 
-                                        <img class="clear-canvas btn" src="./img/controlls/clear canvas.png"
-                                            onclick="clearCanvas()">
-
-
-
+                                        <button class="btn"><img class="btn-img" src="./img/controlls/clear canvas.png"
+                                                onclick="clearCanvas()"></button>
                                     </div>
 
-                                    <div class="bottom-controlls-container">
-                                        <img class="increase-text btn" src="./img/controlls/increase font - icon.png"
-                                            onclick="increaseFontSize()">
-                                        <img class="decrease-text btn" src="./img/controlls/decrease font - icon.png"
-                                            onclick="decreaseFontSize()">
+                                    <div class="bottom-controlls-container flex row">
+                                        <button class="btn"><img class="btn-img"
+                                                src="./img/controlls/increase font - icon.png"
+                                                onclick="increaseFontSize()"></button>
+                                        <button class="btn"><img class="btn-img"
+                                                src="./img/controlls/decrease font - icon.png"
+                                                onclick="decreaseFontSize()"></button>
 
+                                        <button class="btn"><img class="btn-img" src="./img/controlls/align-to-left.png"
+                                                onclick="textAlignLeft()"></button>
+                                        <button class="btn"><img class="btn-img"
+                                                src="./img/controlls/center-text-alignment.png"
+                                                onclick="textAlignCenter()"></button>
+                                        <button class="btn"><img class="btn-img"
+                                                src="./img/controlls/align-to-right.png"
+                                                onclick="textAlignRight()"></button>
                                     </div>
 
                                     <div>
@@ -92,7 +113,6 @@
                                             value="#e66465">
                                         <label for="color-picker-fill"></label>
                                     </div>
-
                                     <div>
                                         <span>Border color:</span>
                                         <input class="color-picker-border" type="color" name="color-picker-border"
@@ -100,50 +120,25 @@
                                         <label for="color-picker-border"></label>
                                     </div>
 
-                                    <input class="file-input btn" type="file" name="image"
+                                    <input class="file-input btn" type="file" name="image" style="display: none;"
                                         onchange="onImgInputClicked(event)" />
 
                                     <a href="#" class="download-button" onclick="downloadImg(this)"
                                         download="my-canvas.jpg"><img class="download-img btn"
                                             src="./img/controlls/download.png"></a>
-
-
-
-
-
-
-
-                                    <div class="gallery-memes">
-                                        <img class="gallery-meme" src="img/uploadedMemes/003.jpg"
-                                            onclick="drawImageInCanvas(this)">
-
-                                        <img class="gallery-meme" src="img/uploadedMemes/004.jpg"
-                                            onclick="drawImageInCanvas(this)">
-
-                                        <img class="gallery-meme" src="img/uploadedMemes/005.jpg"
-                                            onclick="drawImageInCanvas(this)">
-
-                                        <img class="gallery-meme" src="img/uploadedMemes/5.jpg"
-                                            onclick="drawImageInCanvas(this)">
-
-                                        <img class="gallery-meme" src="img/uploadedMemes/006.jpg"
-                                            onclick="drawImageInCanvas(this)">
-
-                                        <img class="gallery-meme" src="img/uploadedMemes/8.jpg"
-                                            onclick="drawImageInCanvas(this)">
-                                    </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
             </section>
         </div>
-
+        <footer class="footer">
+            <div class="logo-container"><img class="footer-logo-img" src="./img/LOGO.png"></div>
+            <p class="copyRights">All rights reserved 2019</p>
+        </footer>
     </div>
+
 
 
 

@@ -15,10 +15,6 @@ var isDown = false;
 //Text
 var gLineSize = 1, gFontSize = 40;
 
-
-
-
-
 init();
 
 function init() {
@@ -52,7 +48,6 @@ function init() {
     gCanvas.addEventListener("touchmove", function (e) {
         move('touchmove', e)
     }, false);
-
     //Images
     loadCanvasImages();
 }
@@ -77,7 +72,7 @@ function move(res, e) {
         }
         // recordPoints(gCurrX, gCurrY, gCtx);
         if (isDown)
-            drawShape();
+            drawLine();
     }
 }
 function out(res, e) {
@@ -136,7 +131,6 @@ function createImages() {
     gImages.push(createImage('8', ['lol']));
     gImages.push(createImage('9', ['fail']));
     saveCanvasImages();
-    console.log(gImages);
 }
 
 
@@ -180,8 +174,6 @@ function loadCanvasImages() {
     if (gImages.length === 0) {
         createImages();
     }
-    else
-        console.log(gImages);
 }
 //End Local storage
 
@@ -191,29 +183,49 @@ function increaseFontSize() {
     gFontSize++;
     var textbox = document.querySelector('.input-line-text');
     drawText(textbox);
-    console.log('font ' + gFontSize);
 }
 function decreaseFontSize() {
     if (gFontSize != 0)
         gFontSize--;
     var textbox = document.querySelector('.input-line-text');
     drawText(textbox);
-    console.log('font ' + gFontSize);
 }
-function drawText(elTextBox) {
+function drawText(elTextBox, ) {
     var text = elTextBox.value;
     gCtx.font = `${gFontSize}px Arial`;
 
     if (text.length > 0) {
         clearCanvas();
-        gCtx.fillText(text, 100, 100)
+        gCtx.fillText(text, 300, 100)
         measureText(gCtx, text)
     } else {
         clearCanvas();
     }
 }
+function textAlignLeft() {
+    gCtx.textAlign = "end";
+    var textbox = document.querySelector('.input-line-text');
+    if (textbox.value !== '') {
+        drawText(textbox);
+    }
+}
+function textAlignCenter() {
+    gCtx.textAlign = "center";
+    var textbox = document.querySelector('.input-line-text');
+    if (textbox.value !== '') {
+        drawText(textbox);
+    }
+}
+function textAlignRight() {
+    gCtx.textAlign = "start";
+    var textbox = document.querySelector('.input-line-text');
+    if (textbox.value !== '') {
+        drawText(textbox);
+    }
+}
 //End Text
 //End Controls
+
 
 //Images
 function onImgInputClicked(ev) {//image clicked
@@ -240,10 +252,23 @@ function loadImageFromInput(ev, onImageReady) {
         img.src = event.target.result;
     }
     reader.readAsDataURL(ev.target.files[0]);
+
 }
 function downloadImg(elLink) {
     var imgContent = gCanvas.toDataURL('image/jpeg');
     elLink.href = imgContent
 }
-
 //End Images
+
+function drawLine() {
+    gCtx.save()
+    gCtx.beginPath();
+    gCtx.moveTo(gPrevX, gPrevY);
+    gCtx.lineTo(gCurrX, gCurrY);
+    gCtx.strokeStyle = gFillColor;
+
+    gCtx.lineWidth = gLineSize;
+    gCtx.stroke();
+    gCtx.closePath();
+    gCtx.restore();
+}
