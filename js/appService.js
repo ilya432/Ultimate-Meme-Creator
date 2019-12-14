@@ -284,14 +284,14 @@ function textAlignRight() {
         drawText(textbox, gX, gY, false);
     }
 }
-function moveTextUp(params) {
+function moveTextUp() {
     var textbox = document.querySelector('.input-text');
     if (textbox.value !== '') {
         gY += 10;
         drawText(textbox, gX, gY, false);
     }
 }
-function moveTextDown(params) {
+function moveTextDown() {
     var textbox = document.querySelector('.input-text');
     if (textbox.value !== '') {
         gY -= 10;
