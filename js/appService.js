@@ -4,16 +4,20 @@
 var gCanvas, gCtx, gImages = [], gNextImgID = -1;
 //Images
 var gCurrImage;
-//Colors
+//Color
 var gBorderColor, gFillColor;
-// window.addEventListener("load", startupColorPickers, false);
 //Pos
+//move/drow
 var gCurrX = 0, gPrevX = 0, gCurrY = 0, gPrevY = 0;
-var gPoints = [], gScrollTop = 0;
+//pos for text
+var gX = 0, gY = 100;
+var gPoints = [], gScrollTop = 0, gIsDownOnText;
 //keys
 var isDown = false;
 //Text
-var gLineSize = 1, gFontSize = 40;
+var gLineSize = 1, gFontSize = 40, gTextAlign;
+var scrollTop = 0;
+var gLines = [], nextLineId = 0, gIsFirstLineCreated = false;
 
 init();
 
@@ -21,7 +25,12 @@ function init() {
     //Canvas
     gCanvas = document.querySelector('.canvas');
     gCtx = gCanvas.getContext("2d");
-    drawRectangle();
+    fitToContainer(gCanvas);
+    gX = gCanvas.width / 2;
+    gY = 100;
+    gCtx.textAlign = "center";
+    // drawRectangle();
+    startupColorPickers();
     //Events
     gCanvas.addEventListener("mousemove", function (e) {
         move('move', e)
@@ -62,15 +71,20 @@ function move(res, e) {
                 if (e.touches.length == 1) { // Only deal with one finger
                     var touch = e.touches[0]; // Get the information for finger #1
                     gCurrX = touch.clientX - touch.target.offsetLeft;
-                    gCurrY = touch.clientY - touch.target.offsetLeft;
+                    gCurrY = touch.clientY - touch.target.offsetTop;
                 }
             }
             e.preventDefault();
         } else {
             gCurrX = e.clientX - gCanvas.offsetLeft;
-            gCurrY = e.clientY - gCanvas.offsetLeft;
+            gCurrY = e.clientY - gCanvas.offsetTop;
+            //TODO
+            // if (currX >= rect.x && currX <= rect.x + rect.w && currY >= rect.y && currY <= rect.y + rect.h) {
+            //     ClickedInsideText = true;//inside
+            //     break;
+            // }
+            // drawText(elTextBox, true)
         }
-        // recordPoints(gCurrX, gCurrY, gCtx);
         if (isDown)
             drawLine();
     }
@@ -92,13 +106,21 @@ function down(res, e) {
                 if (e.touches.length == 1) { // Only deal with one finger
                     var touch = e.touches[0]; // Get the information for finger #1
                     gCurrX = touch.clientX - touch.target.offsetLeft;
-                    gCurrY = touch.clientY - touch.target.offsetLeft;
+                    gCurrY = touch.clientY - touch.target.offsetTop;
                 }
             }
             e.preventDefault();
         } else {
+            recordPoints(gCurrX, gCurrY, gCtx);
+
             gCurrX = e.clientX - gCanvas.offsetLeft;
-            gCurrY = e.clientY - gCanvas.offsetLeft;
+            gCurrY = e.clientY - gCanvas.offsetTop;
+            //TODO
+            // if (currX >= rect.x && currX <= rect.x + rect.w && currY >= rect.y && currY <= rect.y + rect.h) {
+            //     ClickedInsideText = true;//inside
+            //     break;
+            // }
+            // drawText(elTextBox, true)
         }
     }
 }
@@ -110,8 +132,7 @@ function up(res, e) {
         }
     }
 }
-
-
+//Images
 function createImage(name, keywords) {
     var image = {
         name: name,
@@ -156,14 +177,24 @@ function startupColorPickers() {
     var borderColorPicker = document.querySelector(".color-picker-border");
     gBorderColor = getRandomColor();
     borderColorPicker.value = gBorderColor;
-    borderColorPicker.addEventListener("input", updateBorderColor, false);
+    borderColorPicker.addEventListener("input", updateStrokeColor, false);
     borderColorPicker.select();
 }
 function updateFillColor(event) {
     gFillColor = event.target.value;
+    var textbox = document.querySelector('.input-text');
+    drawText(textbox, false);
 }
-function updateBorderColor(event) {
+function updateStrokeColor(event) {
     gBorderColor = event.target.value;
+    var textbox = document.querySelector('.input-text');
+    drawText(textbox, false);
+}
+function colorPickerFillTextClicked() {
+    document.querySelector(".color-picker-fill").click();
+}
+function colorPickersborderTextClicked() {
+    document.querySelector(".color-picker-border").click();
 }
 
 //Canvas
@@ -187,94 +218,118 @@ function loadCanvasImages() {
 //End Local storage
 
 
-//Controls
+//Controls - Text
+function CreateTextLineObj(x, y) {
+    var line = {
+        id: nextLineId++,
+        posX: x,
+        posY: y
+    }
+    return line;
+}
+function addTextLine() {
+    gLines.push(CreateTextLineObj());
+}
+function drawText(elTextBox, isMoveText) {
 
-//Text
-function drawText(elTextBox) {
     var text = elTextBox.value;
-    gCtx.font = `${gFontSize}px Arial`;
-
     if (text.length > 0) {
         clearCanvas();
-        // gCtx.fillText(text, 300, 100)
-        drawImageInCanvas(gCurrImage)
-        measureText(gCtx, text)
+        if (gCurrImage) {
+            drawImageWithText(gCurrImage)
+        } else {
+            gCtx.fillStyle = gFillColor;
+            gCtx.strokeStyle = gBorderColor;
+            gCtx.font = `${gFontSize}px Arial`;
+
+            gCtx.strokeText(text, gX, gY, gCanvas.width);
+            gCtx.fillText(text, gX, gY, gCanvas.width);
+        }
     } else {
         clearCanvas();
-        drawImageInCanvas(gCurrImage);
+        drawImageWithText(gCurrImage);
     }
 }
 function increaseFontSize() {
-    gFontSize++;
+    gFontSize += 4;
     var textbox = document.querySelector('.input-text');
-    drawText(textbox);
+    drawText(textbox, false);
 }
 function decreaseFontSize() {
     if (gFontSize != 0)
-        gFontSize--;
+        gFontSize -= 4;
     var textbox = document.querySelector('.input-text');
-    drawText(textbox);
+    drawText(textbox, false);
 }
 function textAlignLeft() {
-    gCtx.textAlign = "end";
     var textbox = document.querySelector('.input-text');
     if (textbox.value !== '') {
-        drawText(textbox);
+        gX -= 10;
+        drawText(textbox, false);
     }
 }
 function textAlignCenter() {
-    gCtx.textAlign = "center";
+    gTextAlign = "center"
+    gCtx.textAlign = gTextAlign;
     var textbox = document.querySelector('.input-text');
     if (textbox.value !== '') {
-        drawText(textbox);
+        gX = gCanvas.width / 2, gY = 100;
+        drawText(textbox, false);
     }
 }
 function textAlignRight() {
-    gCtx.textAlign = "start";
     var textbox = document.querySelector('.input-text');
     if (textbox.value !== '') {
-        drawText(textbox);
+        gX += 10;
+        drawText(textbox, gX, gY, false);
+    }
+}
+function moveTextUp(params) {
+    var textbox = document.querySelector('.input-text');
+    if (textbox.value !== '') {
+        gY += 10;
+        drawText(textbox, gX, gY, false);
+    }
+}
+function moveTextDown(params) {
+    var textbox = document.querySelector('.input-text');
+    if (textbox.value !== '') {
+        gY -= 10;
+        drawText(textbox, gX, gY, false);
     }
 }
 //End Text
 //End Controls
 
-
 //Images
 function onImgInputClicked(ev) {//image clicked
     loadImageFromInput(ev, drawImage)
 }
-function drawImageInCanvas(elImg) {//draw to canvas
-    // gallerySlideToggle()
+function drawImageWithText(elImg) {//draw to canvas
     if (elImg) {
         gCurrImage = elImg;
     }
     var image = new Image;
     image.onload = function () {
         var textbox = document.querySelector('.input-text');
-        if (textbox.value !== '') {
-            gCtx.font = "40pt Calibri";
+        var text = textbox.value;
+        if (text !== '') {
+            gCtx.fillStyle = gFillColor;
+            gCtx.font = `${gFontSize}px Arial`;
             gCtx.drawImage(image, 0, 0, gCanvas.height, gCanvas.width);
-            gCtx.fillText(textbox.value, 300, 100)
+
+            gCtx.strokeText(text, gX, gY, gCanvas.width);
+            gCtx.fillText(text, gX, gY, gCanvas.width)
         } else {
-            gCtx.drawImage(image, 0, 0, gCanvas.height, gCanvas.width);
+            gCtx.drawImage(image, 0, 0, gCanvas.width, gCanvas.width);
         }
     };
-    image.src = elImg.src;
-
-
-
-
-
-    // gCtx.drawImage(elImg, 0, 0, gCanvas.height, gCanvas.width);
-    // var textbox = document.querySelector('.input-text');
-    // if (textbox.value !== '') {
-    //     drawText(textbox);
-    // }
+    if (elImg.src)
+        image.src = elImg.src;
 }
+//Download
 function loadImageFromInput(ev, onImageReady) {
     var reader = new FileReader();
-
     reader.onload = function (event) {
         var img = new Image();
         img.onload = () => {
@@ -284,26 +339,12 @@ function loadImageFromInput(ev, onImageReady) {
         img.src = event.target.result;
     }
     reader.readAsDataURL(ev.target.files[0]);
-
 }
 function downloadImg(elLink) {
-    // debugger;
     var imgContent = gCanvas.toDataURL('image/jpeg');
-    // var imgContent;
-    // var toDataURLFailed = false;
-    // try {
-    //     imgContent = gCanvas.toDataURL("image/jpeg");
-    // } catch (e) {
-    //     toDataURLFailed = true; // android may generate png
-    // }
-    // if ((toDataURLFailed || imgContent.slice(0, "data:image/jpeg".length) !== "data:image/jpeg")) {
-    //     try {
-    //         var encoder = new JPEGEncoder();
-    //         imgContent = encoder.encode(gCtx.getImageData(0, 0, gCanvas.width, gCanvas.height));
-    //     } catch (e) { alert(1); }
-    // }
     elLink.href = imgContent
 }
+//download End
 
 // function convertBase64StringToImage() {
 //     var image = new Image(),
@@ -331,8 +372,6 @@ function drawLine() {
     gCtx.closePath();
     gCtx.restore();
 }
-
-
 function gallerySlideToggle() {
     var aside = document.querySelector('.aside-gallery-container');
     if (aside.classList.contains('slide-in')) {
@@ -342,9 +381,4 @@ function gallerySlideToggle() {
     else {
         aside.classList.add('slide-in');
     }
-}
-
-
-function colorPickerFillTextClicked() {
-    document.querySelector(".color-picker-fill").click();
 }

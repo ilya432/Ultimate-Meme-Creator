@@ -13,7 +13,7 @@
     <div class="container">
         <header class="header flex row">
 
-            <img class="logo-img" src="./img/logoWhite.png">
+            <img class="logo-img" src="./img/LOGO.png">
 
             <nav class="nav flex row just-end">
                 <div class="">
@@ -38,9 +38,9 @@
 
                 <div class="text-controls-top flex row">
                     <button class="move-text btn"><img class="move-up btn-img" src="./img/controlls/arrow up.png"
-                            onclick="moveText()"></button>
+                            onclick="moveTextUp()"></button>
                     <button class="move-text btn"><img class="move-down btn-img" src="./img/controlls/arrow down.png"
-                            onclick="moveText()"></button>
+                            onclick="moveTextDown()"></button>
 
                     <button class="btn" title="add line" type="submit"><img class="btn-img"
                             src="./img/controlls/add.png" onclick="addTextLine()"></button>
@@ -72,10 +72,9 @@
                             onclick="colorPickerFillTextClicked()"></button>
 
                     <input class="color-picker-border" type="color" style="display:none" name="color-picker-border"
-                        value="#e66465">
-                    <!-- <label for="color-picker-border"></label> -->
+                        value="#e66465" onchange="updateStrokeColor(event)" />
                     <button class="btn"><img class="btn-img" title="change stroke color"
-                            src="./img/controlls/text stroke.png" onclick="colorPickerFillTextClicked()"></button>
+                            src="./img/controlls/text stroke.png" onclick="colorPickersborderTextClicked()"></button>
 
                     <input class="file-input btn" type="file" name="image" style="display: none;"
                         onchange="onImgInputClicked(event)" />
@@ -114,12 +113,12 @@
                     <img class="btn-close-gallery roll-in-left" src="./img/closes-sidebar.png" alt="close"
                         onclick="gallerySlideToggle()">
                     <div class="gallery flex row wrap">
-                        <img class="gallery-meme" src="img/uploadedMemes/003.jpg" onclick="drawImageInCanvas(this)">
-                        <img class="gallery-meme" src="img/uploadedMemes/004.jpg" onclick="drawImageInCanvas(this)">
-                        <img class="gallery-meme" src="img/uploadedMemes/005.jpg" onclick="drawImageInCanvas(this)">
-                        <img class="gallery-meme" src="img/uploadedMemes/5.jpg" onclick="drawImageInCanvas(this)">
-                        <img class="gallery-meme" src="img/uploadedMemes/006.jpg" onclick="drawImageInCanvas(this)">
-                        <img class="gallery-meme" src="img/uploadedMemes/8.jpg" onclick="drawImageInCanvas(this)">
+                        <img class="gallery-meme" src="img/uploadedMemes/003.jpg" onclick="drawImageWithText(this)">
+                        <img class="gallery-meme" src="img/uploadedMemes/004.jpg" onclick="drawImageWithText(this)">
+                        <img class="gallery-meme" src="img/uploadedMemes/005.jpg" onclick="drawImageWithText(this)">
+                        <img class="gallery-meme" src="img/uploadedMemes/5.jpg" onclick="drawImageWithText(this)">
+                        <img class="gallery-meme" src="img/uploadedMemes/006.jpg" onclick="drawImageWithText(this)">
+                        <img class="gallery-meme" src="img/uploadedMemes/8.jpg" onclick="drawImageWithText(this)">
                     </div>
                 </aside>
 
@@ -128,8 +127,11 @@
 
 
 
-        <footer>
-            <!-- Footer content -->
+        <footer class="footer flex column">
+            <div class="logo-container">
+                <img class="footer-logo-img" src="./img/LOGO.png">
+                <p class="copyRights">All rights reserved 2019</p>
+            </div>
         </footer>
     </div>
 

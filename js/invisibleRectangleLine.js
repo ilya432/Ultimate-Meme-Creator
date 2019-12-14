@@ -23,7 +23,6 @@ function Shape(x, y, w, h, fill) {
 //invisible text Rectangle
 function drawRectangle() {
     // debugger;
-
     var x = 20
     var y = 20;
     var canvasW = +gCanvas.width;
@@ -32,12 +31,8 @@ function drawRectangle() {
     if (gCtx) {
         gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);//clear
 
-
         lines.push(new Shape(x, y, canvasW - (x * 2), h, black));
-        lines.push(new Shape(x, canvasH - 60, canvasW - (x * 2), h - x, black));
-
-
-
+        lines.push(new Shape(x, canvasH - (h + x), canvasW - (x * 2), h, black));
 
         for (var i in lines) {
             var rect = lines[i];
@@ -63,26 +58,3 @@ function drawRectangle() {
 
 
 
-
-
-
-
-
-
-
-
-// $(document).ready(function () {
-//     //************VIEWPORT*************
-//     $(window).resize(function () {
-//         rectsLeft = [];
-//         rectsLeft.length = 0;
-//         rectsRight = [];
-//         rectsRight.length = 0;
-//         fitToContainer(canvas);
-//         drawRectangles();
-//         getViewport();
-//         //shuffleLeft();
-//     });    
-//     //************VIEWPORT END*************
-
-// });//$(Document).ready... END
