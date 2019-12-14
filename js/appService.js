@@ -287,21 +287,21 @@ function loadImageFromInput(ev, onImageReady) {
 
 }
 function downloadImg(elLink) {
-    debugger;
-    // var imgContent = gCanvas.toDataURL('image/jpeg');
-    var imgContent;
-    var toDataURLFailed = false;
-    try {
-        imgContent = gCanvas.toDataURL("image/jpeg");
-    } catch (e) {
-        toDataURLFailed = true; // android may generate png
-    }
-    if ((toDataURLFailed || imgContent.slice(0, "data:image/jpeg".length) !== "data:image/jpeg")) {
-        try {
-            var encoder = new JPEGEncoder();
-            imgContent = encoder.encode(gCtx.getImageData(0, 0, gCanvas.width, gCanvas.height));
-        } catch (e) { alert(1); }
-    }
+    // debugger;
+    var imgContent = gCanvas.toDataURL('image/jpeg');
+    // var imgContent;
+    // var toDataURLFailed = false;
+    // try {
+    //     imgContent = gCanvas.toDataURL("image/jpeg");
+    // } catch (e) {
+    //     toDataURLFailed = true; // android may generate png
+    // }
+    // if ((toDataURLFailed || imgContent.slice(0, "data:image/jpeg".length) !== "data:image/jpeg")) {
+    //     try {
+    //         var encoder = new JPEGEncoder();
+    //         imgContent = encoder.encode(gCtx.getImageData(0, 0, gCanvas.width, gCanvas.height));
+    //     } catch (e) { alert(1); }
+    // }
     elLink.href = imgContent
 }
 
