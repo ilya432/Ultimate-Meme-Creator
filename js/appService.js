@@ -3,10 +3,10 @@
 //Canvas
 var gCanvas, gCtx, gImages = [], gNextImgID = -1;
 //Images
-var gCurrImageName;
+var gCurrImage;
 //Colors
 var gBorderColor, gFillColor;
-window.addEventListener("load", startupColorPickers, false);
+// window.addEventListener("load", startupColorPickers, false);
 //Pos
 var gCurrX = 0, gPrevX = 0, gCurrY = 0, gPrevY = 0;
 var gPoints = [], gScrollTop = 0;
@@ -132,7 +132,18 @@ function createImages() {
     gImages.push(createImage('9', ['fail']));
     saveCanvasImages();
 }
+function getAllImagesToRender() {
+    return gImages;
+}
+function getImagesToRenderByTag() {
 
+    var filteredTodos = gTodos.filter(function (todo) {
+        return ((gStatusFilter === 'all') ||
+            (gStatusFilter === 'active' && !todo.isDone) ||
+            (gStatusFilter === 'done' && todo.isDone))
+    });
+    return filteredTodos;
+}
 
 //Colors
 function startupColorPickers() {
@@ -150,11 +161,9 @@ function startupColorPickers() {
 }
 function updateFillColor(event) {
     gFillColor = event.target.value;
-    isRandomColors = false;
 }
 function updateBorderColor(event) {
     gBorderColor = event.target.value;
-    isRandomColors = false;
 }
 
 //Canvas
@@ -177,48 +186,52 @@ function loadCanvasImages() {
 }
 //End Local storage
 
+
 //Controls
+
 //Text
-function increaseFontSize() {
-    gFontSize++;
-    var textbox = document.querySelector('.input-line-text');
-    drawText(textbox);
-}
-function decreaseFontSize() {
-    if (gFontSize != 0)
-        gFontSize--;
-    var textbox = document.querySelector('.input-line-text');
-    drawText(textbox);
-}
-function drawText(elTextBox, ) {
+function drawText(elTextBox) {
     var text = elTextBox.value;
     gCtx.font = `${gFontSize}px Arial`;
 
     if (text.length > 0) {
         clearCanvas();
-        gCtx.fillText(text, 300, 100)
+        // gCtx.fillText(text, 300, 100)
+        drawImageInCanvas(gCurrImage)
         measureText(gCtx, text)
     } else {
         clearCanvas();
+        drawImageInCanvas(gCurrImage);
     }
+}
+function increaseFontSize() {
+    gFontSize++;
+    var textbox = document.querySelector('.input-text');
+    drawText(textbox);
+}
+function decreaseFontSize() {
+    if (gFontSize != 0)
+        gFontSize--;
+    var textbox = document.querySelector('.input-text');
+    drawText(textbox);
 }
 function textAlignLeft() {
     gCtx.textAlign = "end";
-    var textbox = document.querySelector('.input-line-text');
+    var textbox = document.querySelector('.input-text');
     if (textbox.value !== '') {
         drawText(textbox);
     }
 }
 function textAlignCenter() {
     gCtx.textAlign = "center";
-    var textbox = document.querySelector('.input-line-text');
+    var textbox = document.querySelector('.input-text');
     if (textbox.value !== '') {
         drawText(textbox);
     }
 }
 function textAlignRight() {
     gCtx.textAlign = "start";
-    var textbox = document.querySelector('.input-line-text');
+    var textbox = document.querySelector('.input-text');
     if (textbox.value !== '') {
         drawText(textbox);
     }
@@ -232,13 +245,32 @@ function onImgInputClicked(ev) {//image clicked
     loadImageFromInput(ev, drawImage)
 }
 function drawImageInCanvas(elImg) {//draw to canvas
-    gCtx.drawImage(elImg, 0, 0, gCanvas.height, gCanvas.width);
-
-
-    var textbox = document.querySelector('.input-line-text');
-    if (textbox.value !== '') {
-        drawText(textbox);
+    // gallerySlideToggle()
+    if (elImg) {
+        gCurrImage = elImg;
     }
+    var image = new Image;
+    image.onload = function () {
+        var textbox = document.querySelector('.input-text');
+        if (textbox.value !== '') {
+            gCtx.font = "40pt Calibri";
+            gCtx.drawImage(image, 0, 0, gCanvas.height, gCanvas.width);
+            gCtx.fillText(textbox.value, 300, 100)
+        } else {
+            gCtx.drawImage(image, 0, 0, gCanvas.height, gCanvas.width);
+        }
+    };
+    image.src = elImg.src;
+
+
+
+
+
+    // gCtx.drawImage(elImg, 0, 0, gCanvas.height, gCanvas.width);
+    // var textbox = document.querySelector('.input-text');
+    // if (textbox.value !== '') {
+    //     drawText(textbox);
+    // }
 }
 function loadImageFromInput(ev, onImageReady) {
     var reader = new FileReader();
@@ -255,9 +287,36 @@ function loadImageFromInput(ev, onImageReady) {
 
 }
 function downloadImg(elLink) {
-    var imgContent = gCanvas.toDataURL('image/jpeg');
+    debugger;
+    // var imgContent = gCanvas.toDataURL('image/jpeg');
+    var imgContent;
+    var toDataURLFailed = false;
+    try {
+        imgContent = gCanvas.toDataURL("image/jpeg");
+    } catch (e) {
+        toDataURLFailed = true; // android may generate png
+    }
+    if ((toDataURLFailed || imgContent.slice(0, "data:image/jpeg".length) !== "data:image/jpeg")) {
+        try {
+            var encoder = new JPEGEncoder();
+            imgContent = encoder.encode(gCtx.getImageData(0, 0, gCanvas.width, gCanvas.height));
+        } catch (e) { alert(1); }
+    }
     elLink.href = imgContent
 }
+
+// function convertBase64StringToImage() {
+//     var image = new Image(),
+//         var containerWidth = 100,
+//         var containerHeight = 100;
+
+//     image.onload = function () {
+//         containerWidth = image.width;
+//         containerHeight = image.height;
+//     }
+//     image.src = base64string;
+// }
+
 //End Images
 
 function drawLine() {
@@ -271,4 +330,21 @@ function drawLine() {
     gCtx.stroke();
     gCtx.closePath();
     gCtx.restore();
+}
+
+
+function gallerySlideToggle() {
+    var aside = document.querySelector('.aside-gallery-container');
+    if (aside.classList.contains('slide-in')) {
+        aside.classList.remove('slide-in');
+        aside.classList.add('slide-out');
+    }
+    else {
+        aside.classList.add('slide-in');
+    }
+}
+
+
+function colorPickerFillTextClicked() {
+    document.querySelector(".color-picker-fill").click();
 }

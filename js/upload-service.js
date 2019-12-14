@@ -1,7 +1,7 @@
 
 // on submit call to this function
 function uploadImg(elForm, ev) {
-    debugger;
+    // debugger;
     ev.preventDefault();
     document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
 
@@ -9,9 +9,10 @@ function uploadImg(elForm, ev) {
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         document.querySelector('.share-container').innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-           Share   
-        </a>`
+        <button class="btn share-facebook-img">
+        <a  href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+        <img class="btn-img" src="./img/controlls/upload.png">   
+        </a></button>`
     }
 
     doUploadImg(elForm, onSuccess);

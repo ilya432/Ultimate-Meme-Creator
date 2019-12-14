@@ -6,6 +6,35 @@
 //     var gallery = document.querySelector();
 // }
 
+// function renderGallery() {
+//     var elGallery = document.getSelection('.gallery');
+//     strHtml = '';
+//     var images = getImagesToRender();
+
+//     for (var i = 0; i < images.length; i++) {
+//         var image = new Image();
+//         var key = "cards" + i;
+//         image.onload = appendToGallery(i, key, image);
+//     }
+
+//     function appendToGallery(i, key, elImage) {
+//         elImage.id = `gallery-image-${i}`;
+//         elImage.class = 'gallery-image';
+//         elImage.src = './img/gallery/';
+//         elGallery.appendChild(elImage);
+//     }
+
+// }
+
+// strHtml = images.map(function (image) {
+//     return `
+//     <img class="" str="" alt="${image.name}">
+//     `;
+// })
+
+// elGallery.innerHTML = strHtml.join('');
+// }
+
 
 
 
